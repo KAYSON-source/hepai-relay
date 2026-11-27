@@ -1,24 +1,63 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="referrer" content="no-referrer"><meta name="theme-color" content="#fcfcf8">
-<title>合映 · 和朋友一起修合照</title><meta name="description" content="为一张合照开一场接力。取走原片、用醒图修好自己，把新版本传给朋友。"><link rel="icon" href="/icon.svg?v=2"><link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#faf9f6">
+  <title>合映 · 和朋友一起修合照</title>
+  <meta name="description" content="上传一张合照，朋友轮流用醒图修好自己。原片和每次回传的版本都能保存。">
+  <link rel="icon" href="/icon.svg?v=2">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
 </head>
 <body>
-<header><div class="bar"><a href="#" class="brand" aria-label="合映首页"><img src="/icon.svg?v=2" width="41" height="41" alt=""><span>合映<small>HÉYǏNG</small></span></a><nav aria-label="主导航"><a href="#" id="navHome">接力台</a><a href="#recent" id="navRecent">最近接力</a></nav><button class="help" data-do="guide"><i data-icon="book"></i>使用指南</button></div></header>
-<main id="home">
-<section class="hero">
-<div class="pitch"><h1>一起拍合照，<br><em>各自修自己。</em></h1><p>把原片放进接力台，在自己的手机上用醒图修好，再把合照交给下一位朋友。</p><div class="actions"><button class="primary" data-do="create"><i data-icon="plus"></i>发起接力</button><button class="secondary" data-do="demo"><i data-icon="play"></i>试用示例</button></div></div>
-<div class="desk" role="img" aria-label="示例合照，三位朋友在海边一起笑"><div class="print-back"></div><figure class="print"><div class="tape"></div><img src="/coast.jpg" alt="" fetchpriority="high"><figcaption><b>海边的我们</b><span>示例原片</span></figcaption></figure><span class="spark star1" aria-hidden="true">✳</span><span class="spark star2" aria-hidden="true">✧</span></div>
-</section>
-<section class="steps" aria-labelledby="stepsTitle"><div class="sectionhead"><h2 id="stepsTitle">一张合照，三步接力</h2></div><div class="stepgrid">
-<article><span class="tile mint"><i data-icon="imageplus"></i></span><div><h3>上传原片</h3><p>选一张合照，保留原始文件。</p></div></article>
-<article><span class="tile peach"><i data-icon="wand"></i></span><div><h3>轮流修图</h3><p>接过最新一版，修好再传回。</p></div></article>
-<article><span class="tile lilac"><i data-icon="layers"></i></span><div><h3>收好成片</h3><p>每一版都在，随时保存合照。</p></div></article>
-</div></section>
-<section class="recent" id="recent"><div class="sectionhead"><h2>最近接力</h2><span>此设备打开过的合照</span></div><div id="recentList"></div></section>
-</main>
-<main id="room" hidden></main>
-<dialog id="modal"><div class="dialoghead"><h2 id="dialogTitle"></h2><button type="button" class="iconbtn" aria-label="关闭" id="closeModal"><i data-icon="close"></i></button></div><div id="dialogBody"></div></dialog>
-<div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
-</body></html>
+  <header>
+    <div class="bar">
+      <a href="#" class="brand" aria-label="合映首页">
+        <img src="/icon.svg?v=2" width="33" height="33" alt="">
+        <span>合映</span><small lang="zh-Latn">HÉYǏNG</small>
+      </a>
+      <nav aria-label="主导航">
+        <a href="#" id="navHome">接力台</a>
+        <a href="#recent" id="navRecent">最近接力</a>
+        <button type="button" class="help" data-do="guide">使用指南</button>
+      </nav>
+    </div>
+  </header>
+  <main id="home">
+    <section class="intro" aria-labelledby="coverTitle">
+      <h1 id="coverTitle">合照接力</h1>
+      <div class="start">
+        <p>上传原片，和朋友轮流修图。<br>修好一版，就传给下一位。</p>
+        <button type="button" class="primary" data-do="create"><i data-icon="plus"></i>发起接力</button>
+      </div>
+    </section>
+    <div class="spread">
+      <figure class="cover">
+        <img src="/coast.jpg" alt="三个朋友在海边拥着彼此大笑" fetchpriority="high">
+        <figcaption>
+          <span class="caption-title">海边的我们 <small>示例合照</small></span>
+          <button type="button" class="text-action" data-do="demo">用这张试试</button>
+        </figcaption>
+      </figure>
+      <section class="recent" id="recent" aria-labelledby="recentTitle">
+        <div class="sectionhead">
+          <h2 id="recentTitle">最近接力</h2>
+          <span>此设备</span>
+        </div>
+        <div id="recentList"></div>
+      </section>
+    </div>
+  </main>
+  <main id="room" hidden></main>
+  <dialog id="modal" aria-labelledby="dialogTitle">
+    <div class="dialoghead">
+      <h2 id="dialogTitle"></h2>
+      <button type="button" class="iconbtn" aria-label="关闭" id="closeModal"><i data-icon="close"></i></button>
+    </div>
+    <div id="dialogBody"></div>
+  </dialog>
+  <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

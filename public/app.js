@@ -43,7 +43,9 @@ const api = id => "/api/rooms"+(id?"/"+id:"");
 const fileURL = (id,v) => api(id)+"/files/"+v;
 function drawRecent() {
   const entries=recent();
-  $("#recentList").innerHTML=entries.length ? entries.map(r=>'<a class="recentrow" href="#r/'+r.id+'"><span class="tile mint">'+icon("photo")+'</span><div><b>'+esc(r.title)+'</b><small>'+r.count+' 个版本 · '+date(r.time)+'</small></div>'+icon("chevron")+'</a>').join("") : '<div class="empty">'+icon("folder")+'<div><b>还没有打开过接力</b><p>发起第一场，或先用示例合照试一遍。</p></div></div>';
+  $("#recentList").innerHTML=entries.length ? entries.map(r =>
+    '<a class="recentrow" href="#r/'+r.id+'"><div><b>'+esc(r.title)+'</b><small>'+r.count+' 个版本 · '+date(r.time)+'</small></div>'+icon("chevron")+'</a>'
+  ).join("") : '<p class="empty">还没有打开过的合照。</p>';
   icons($("#recentList"));
 }
 let room=null, epoch=0, timer, busy=false, modalGeneration=0;
@@ -86,9 +88,9 @@ function drawRoom(){
   const busyOther=lease&&!lease.mine;
   const file=fileURL(room.id,latest.id);
   const control=lease?.mine ? '<h2>轮到你修图了</h2><p class="muted">取走当前版本，在醒图里修好自己。导出后回到这里，上传接力版本。</p><div class="buttonrow">'+btn("take","取图去醒图","share")+btn("return","回传修好的图","imageplus","secondary")+'</div>'+btn("release","暂时让出这一棒","","plain") :
-    '<h2>'+(busyOther?esc(lease.name)+' 正在修图':'下一棒，交给你')+'</h2><p class="muted">'+(busyOther?'对方传回照片后，你就能接棒。页面会自动更新。':'接过最新的合照，在自己的手机上慢慢修。')+'</p>'+(!busyOther?btn("claim","接过这一棒","wand"):btn("refresh","刷新进度","","secondary"));
+    '<h2>'+(busyOther?esc(lease.name)+' 正在修图':'下一棒，交给你')+'</h2><p class="muted">'+(busyOther?'对方传回照片后，你就能接棒。页面会自动更新。':'接过最新的合照，在自己的手机上慢慢修。')+'</p>'+(!busyOther?btn("claim","接过这一棒",""):btn("refresh","刷新进度","","secondary"));
   const versionRows=room.versions.map((v,i)=>'<div class="vrow"><div><b>'+(i===0?'原片':'第 '+i+' 棒')+(i===n-1?' · 当前版本':'')+'</b><span class="small">'+esc(v.name)+' · '+date(v.time)+' · '+size(v.size)+'</span></div><a download href="'+fileURL(room.id,v.id)+'?download">'+icon("save")+'下载</a></div>').reverse().join("");
-  panel.innerHTML='<div class="roomhead"><div><a href="#" class="meta">接力台 /</a><h1>'+esc(room.title)+'</h1><small>'+n+' 个版本 · '+(n===1?"原片已就位":"已完成 "+(n-1)+" 棒")+'</small></div>'+btn("invite","邀请朋友","chain","secondary")+'</div><div class="roomgrid"><section class="photoarea"><div class="photoframe"><img src="'+file+'" alt="当前版本合照"><p class="fallback" hidden>浏览器无法预览此格式，可以下载原文件。</p></div><div class="photometa"><div><div class="filename">'+esc(latest.filename)+'</div><span class="small">'+size(latest.size)+' · '+esc(latest.type.split("/")[1].toUpperCase())+'</span></div><a class="secondary" download href="'+file+'?download">'+icon("save")+'保存</a></div></section><section class="control"><span class="tile mint">'+icon("wand")+'</span>'+control+'</section></div><section class="versions"><h2>接力记录</h2>'+versionRows+'</section>';
+  panel.innerHTML='<div class="roomhead"><div><a href="#" class="meta">接力台 /</a><h1>'+esc(room.title)+'</h1><small>'+n+' 个版本 · '+(n===1?"原片已就位":"已完成 "+(n-1)+" 棒")+'</small></div>'+btn("invite","邀请朋友","chain","secondary")+'</div><div class="roomgrid"><section class="photoarea"><div class="photoframe"><img src="'+file+'" alt="当前版本合照"><p class="fallback" hidden>浏览器无法预览此格式，可以下载原文件。</p></div><div class="photometa"><div><div class="filename">'+esc(latest.filename)+'</div><span class="small">'+size(latest.size)+' · '+esc(latest.type.split("/")[1].toUpperCase())+'</span></div><a class="secondary" download href="'+file+'?download">'+icon("save")+'保存</a></div></section><section class="control">'+control+'</section></div><section class="versions"><h2>接力记录</h2>'+versionRows+'</section>';
   const img=panel.querySelector(".photoframe img");img.onerror=()=>{img.hidden=true;img.nextElementSibling.hidden=false;};
   icons(panel);
 }
