@@ -55,5 +55,5 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
       if (response.body) Readable.fromWeb(response.body).pipe(res); else res.end();
     } catch { res.writeHead(500); res.end("暂时无法打开，请重试。"); }
   });
-  server.listen(port, host, () => console.log("合拍接力 http://" + host + ":" + server.address().port));
+  server.listen(port, host, () => console.log("合映 http://" + host + ":" + server.address().port));
 }
